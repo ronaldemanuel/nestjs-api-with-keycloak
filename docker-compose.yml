@@ -21,3 +21,19 @@ services:
       POSTGRES_PASSWORD: ${DB_PASS}
     ports:
       - 5432:${DB_PORT}
+  keycloak:
+    image: jboss/keycloak:15.0.0
+    container_name: micro_auth_api
+    environment:
+      DB_VENDOR: ${DB_VENDOR}
+      DB_ADDR: database
+      DB_DATABASE: ${DB_NAME}
+      DB_USER: ${DB_USER}
+      DB_SCHEMA: public
+      DB_PASSWORD: ${DB_PASS}
+      KEYCLOAK_USER: ${KEYCLOAK_USER}
+      KEYCLOAK_PASSWORD: ${KEYCLOAK_PASSWORD}
+    ports:
+      - 8080:${KEYCLOAK_PORT}
+    depends_on:
+      - database
